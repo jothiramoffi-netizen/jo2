@@ -1,0 +1,72 @@
+# thermodynamic_cycles.py
+import math
+
+# 1. Otto Cycle Efficiency
+def otto_efficiency(r, gamma):
+    return 1 - (1 / (r ** (gamma - 1)))
+
+
+# 2. Diesel Cycle Efficiency
+def diesel_efficiency(r, gamma, rho):
+    return 1 - (1 / (r ** (gamma - 1))) * ((rho ** gamma - 1) / (gamma * (rho - 1)))
+
+
+# 3. Dual Cycle Efficiency
+def dual_efficiency(r, gamma, rho, rc):
+    return 1 - (1 / (r ** (gamma - 1))) * ((rc * (rho ** gamma - 1)) / (gamma * (rc - 1) + rc * gamma * (rho - 1)))
+
+
+# 4. Brayton Cycle Efficiency
+def brayton_efficiency(rp, gamma):
+    return 1 - (1 / (rp ** ((gamma - 1) / gamma)))
+
+
+# 5. Rankine Cycle Efficiency
+def rankine_efficiency(Qin, Qout):
+    return 1 - (Qout / Qin)
+
+
+# ===========================
+# Main Program
+# ===========================
+
+print("Thermodynamic Cycle Efficiency Calculator")
+print("1. Otto Cycle")
+print("2. Diesel Cycle")
+print("3. Dual Cycle")
+print("4. Brayton Cycle")
+print("5. Rankine Cycle")
+
+choice = input("Select cycle (1-5): ")
+
+gamma = 1.4  # Default for air
+
+if choice == "1":
+    r = float(input("Enter compression ratio (r): "))
+    eta = otto_efficiency(r, gamma)
+
+elif choice == "2":
+    r = float(input("Enter compression ratio (r): "))
+    rho = float(input("Enter cutoff ratio (rho): "))
+    eta = diesel_efficiency(r, gamma, rho)
+
+elif choice == "3":
+    r = float(input("Enter compression ratio (r): "))
+    rho = float(input("Enter cutoff ratio (rho): "))
+    rc = float(input("Enter pressure ratio (rc): "))
+    eta = dual_efficiency(r, gamma, rho, rc)
+
+elif choice == "4":
+    rp = float(input("Enter pressure ratio (rp): "))
+    eta = brayton_efficiency(rp, gamma)
+
+elif choice == "5":
+    Qin = float(input("Enter heat added (Qin): "))
+    Qout = float(input("Enter heat rejected (Qout): "))
+    eta = rankine_efficiency(Qin, Qout)
+
+else:
+    print("Invalid choice")
+    exit()
+
+print("\nThermal Efficiency =", round(eta * 100, 2), "%")
