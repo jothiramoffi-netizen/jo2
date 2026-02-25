@@ -1,0 +1,25 @@
+# Beam Deflection Calculator
+
+print("Beam Deflection Calculator")
+
+# Select beam type
+print("Select Beam Type:")
+print("1. Simply Supported Beam (Point load at center)")
+print("2. Cantilever Beam (Point load at free end)")
+beam_type = input("Enter choice (1/2): ")
+
+# Inputs
+P = float(input("Enter applied load P (N): "))
+L = float(input("Enter length of beam L (m): "))
+E = float(input("Enter Young's modulus E (Pa): "))
+I = float(input("Enter moment of inertia I (m^4): "))
+
+# Calculate deflection
+if beam_type == "1":
+    delta_max = (P * L**3) / (48 * E * I)
+    print("\nMaximum deflection for simply supported beam:", round(delta_max, 6), "m")
+elif beam_type == "2":
+    delta_max = (P * L**3) / (3 * E * I)
+    print("\nMaximum deflection for cantilever beam:", round(delta_max, 6), "m")
+else:
+    print("Invalid choice!")
